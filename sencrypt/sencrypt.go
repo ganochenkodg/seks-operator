@@ -47,12 +47,6 @@ func GetKey() *rsa.PublicKey {
 
 func GetData() map[string]interface{} {
 	file := os.Stdin
-	fi, _ := file.Stat()
-	size := fi.Size()
-	if size == 0 {
-		fmt.Println("Stdin is empty, please pass some Secret")
-		os.Exit(1)
-	}
 
 	content, err := io.ReadAll(file)
 	if err != nil {

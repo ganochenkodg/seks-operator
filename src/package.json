@@ -1,0 +1,24 @@
+{
+  "name": "seks-operator",
+  "version": "0.1.0",
+  "description": "Simply Encrypted Kubernetes Secrets operator",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ganochenkodg/seks-operator.git"
+  },
+  "keywords": ["k8s", "operator"],
+  "author": "Dmitrii Ganochenko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ganochenkodg/seks-operator/issues"
+  },
+  "homepage": "https://github.com/ganochenkodg/seks-operator#readme",
+  "dependencies": {
+    "@kubernetes/client-node": "^0.18.1"
+  }
+}
