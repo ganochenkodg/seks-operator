@@ -74,6 +74,7 @@ func main() {
 	data := GetData()
 
 	data["apiVersion"] = "dganochenko.work/v1alpha1"
+	data["kind"] = "EncSecret"
 	for k, v := range data["data"].(map[string]interface{}) {
 		data["data"].(map[string]interface{})[k] = Encrypt(publicKey, v.(string))
 	}

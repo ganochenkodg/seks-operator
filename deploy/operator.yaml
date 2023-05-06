@@ -1,0 +1,68 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: rwmvolume-operator
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: rwmvolume-operator-sa
+  namespace: rwmvolume-operator
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: rwmvolume-operator-role
+rules:
+  - apiGroups: ["dganochenko.work"]
+    resources: ["rwmvolumes","rwmvolumes/status"]
+    verbs: ["get", "list", "create", "update", "delete", "patch", "watch"]
+  - apiGroups: [""]
+    resources: ["namespaces", "services", "persistentvolumes", "persistentvolumeclaims"]
+    verbs: ["get", "list", "create", "update", "delete", "patch", "watch"]
+  - apiGroups: ["apps"]
+    resources: ["deployments"] 
+    verbs: ["get", "list", "create", "update", "delete", "patch", "watch"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: rwmvolume-operator-rolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: rwmvolume-operator-role
+subjects:
+  - kind: ServiceAccount
+    name: rwmvolume-operator-sa
+    namespace: rwmvolume-operator
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rwmvolume-operator
+  namespace: rwmvolume-operator
+  labels: &labels
+    app: rwmvolume-operator
+    component: operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels: *labels
+  template:
+    metadata: 
+      labels: *labels
+    spec:
+      serviceAccountName: rwmvolume-operator-sa
+      containers:
+      - name: operator
+        image: docker.io/dganochenko/rwmv-operator:0.1.0
+        imagePullPolicy: Always
+        env:
+        - name: "CLUSTER_DOMAIN"
+          value: "cluster.local"
+        - name: "DEBUG_MODE"
+          value: "false"
+
