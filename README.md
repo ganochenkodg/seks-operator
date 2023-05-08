@@ -85,7 +85,7 @@ At first you have to have to prepare some K8S secret, we will generate the new o
 kubectl create secret generic testsecret --from-literal=foo=bar --from-literal=hello=world -o yaml --dry-run=client > secret.yaml
 ```
 
-After that we are going to encrypt that secret using CLI tool
+After that we are going to encrypt the secret using CLI tool
 
 ```console
 $ sencrypt < secret.yaml > enc_secret.yaml
@@ -99,7 +99,7 @@ metadata:
     creationTimestamp: null
     name: testsecret
 $ kubectl apply -f enc_secret.yaml
-encsecret.dganochenko.work/test created
+encsecret.dganochenko.work/testsecret created
 ```
 
 Let's check operator logs and get data from the provisioned secret
