@@ -37,7 +37,7 @@ deployment.apps/seks-operator created
 Check if operator works:
 
 ```console
-$ kubectl get pod -n seks-operato
+$ kubectl get pod -n seks-operator
 NAME                             READY   STATUS    RESTARTS   AGE
 seks-operator-5f59fbdd75-hnd7h   1/1     Running   0          70s
 ```
