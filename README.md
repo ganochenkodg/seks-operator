@@ -82,7 +82,7 @@ EOF
 At first you have to have to prepare some K8S secret, we will generate the new one:
 
 ```bash
-kubectl create secret generic test --from-literal=foo=bar --from-literal=hello=world -o yaml --dry-run=client > secret.yaml
+kubectl create secret generic testsecret --from-literal=foo=bar --from-literal=hello=world -o yaml --dry-run=client > secret.yaml
 ```
 
 After that we are going to encrypt that secret using CLI tool
@@ -97,7 +97,7 @@ data:
 kind: EncSecret
 metadata:
     creationTimestamp: null
-    name: test
+    name: testsecret
 $ kubectl apply -f enc_secret.yaml
 encsecret.dganochenko.work/test created
 ```
@@ -107,11 +107,11 @@ Let's check operator logs and get data from the provisioned secret
 ```console
 $ kubectl logs seks-operator-5f59fbdd75-hnd7h -n seks-operator|tail -n 3
 5/8/2023, 2:34:54 PM: Received event in phase ADDED.
-5/8/2023, 2:34:55 PM: Can't read or update test state...
-5/8/2023, 2:34:55 PM: Secret test was created!
-$ kubectl get secret test -o jsonpath='{.data.foo}'| base64 -d
+5/8/2023, 2:34:55 PM: Can't read or update testsecret state...
+5/8/2023, 2:34:55 PM: Secret testsecret was created!
+$ kubectl get secret testsecret -o jsonpath='{.data.foo}'| base64 -d
 bar
-$ kubectl get secret test -o jsonpath='{.data.hello}'| base64 -d
+$ kubectl get secret testsecret -o jsonpath='{.data.hello}'| base64 -d
 world
 ```
 
