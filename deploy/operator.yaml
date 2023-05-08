@@ -56,8 +56,9 @@ spec:
       - name: operator
         image: docker.io/dganochenko/seks-operator:0.1.0
         imagePullPolicy: Always
-        command: ["/bin/sh"]
-        args: ["-c", "while true; do echo hello; sleep 10;done"]
+        # debug
+        # command: ["/bin/sh"]
+        # args: ["-c", "while true; do echo hello; sleep 10;done"]
         env:
         - name: "CLUSTER_DOMAIN"
           value: "cluster.local"

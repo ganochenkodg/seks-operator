@@ -52,8 +52,7 @@ function scheduleApplying(obj) {
 
 async function applyNow(obj) {
   applyingScheduled = false;
-  console.log(obj);
-  //  applySecret(obj, k8sCoreApi);
+  applySecret(obj, k8sCoreApi, privateKey);
 }
 
 async function main() {
@@ -71,6 +70,6 @@ if (debugMode == 'true') {
   });
 }
 
-const privateKey = getPrivateKey(k8sCoreApi);
+const privateKey = await getPrivateKey(k8sCoreApi);
 
 main();

@@ -2,13 +2,14 @@ export function secretTemplate(apiObj) {
   var template = {
     apiVersion: 'v1',
     kind: 'Secret',
-    type: 'Opaque',
+    type: `${typeof apiObj.type !== 'undefined' ? apiObj.type : 'Opaque'}`,
     metadata: {
       name: `${apiObj.metadata.name}`,
       namespace: `${apiObj.metadata.namespace}`
     },
-    data: `${apiObj.data}`
+    data: {}
   };
+  template.data = apiObj.data;
   return template;
 }
 
